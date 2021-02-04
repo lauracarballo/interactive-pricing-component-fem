@@ -1,35 +1,8 @@
-import { useState } from "react";
 import styled from "styled-components";
+import Slider from "./Slider";
 import { neutral, main } from "../utils";
 
-const price = [
-  {
-    pageViews: 10 + "K",
-    price: 8,
-  },
-  {
-    pageViews: 50 + "K",
-    price: 12,
-  },
-  {
-    pageViews: 100 + "K",
-    price: 16,
-  },
-  {
-    pageViews: 500 + "K",
-    price: 24,
-  },
-  {
-    pageViews: 1 + "M",
-    price: 36,
-  },
-];
-
 export default function Pricing() {
-  const defaultPrice = price.find((price) => price.pageViews === "100K");
-
-  const [priceRange, setPriceRange] = useState(defaultPrice);
-
   return (
     <SectionWrapper>
       <Header>
@@ -38,11 +11,7 @@ export default function Pricing() {
       </Header>
       <PricingBox>
         <Row>
-          <PageViews>{priceRange.pageViews} PAGEVIEWS</PageViews>
-          <span>$ {priceRange.price} /month </span>
-        </Row>
-        <Row>
-          <Slider></Slider>
+          <Slider minValue={8} maxValue={36} />
         </Row>
 
         <hr />
@@ -122,17 +91,13 @@ const Row = styled.div`
   justify-content: space-between;
 `;
 
-const PageViews = styled.span`
-  letter-spacing: 2px;
-`;
-
-const Slider = styled.div`
-  height: 10px;
-  width: 100%;
-  background-color: black;
-  margin: 55px 0;
-  border-radius: 10px;
-`;
+// const Slider = styled.div`
+//   height: 10px;
+//   width: 100%;
+//   background-color: black;
+//   margin: 55px 0;
+//   border-radius: 10px;
+// `;
 
 const InfoContainer = styled.div`
   display: flex;
