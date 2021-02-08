@@ -4,7 +4,7 @@ I built this interactive pricing component following the Frontend Mentor design 
 
 ## The challenge
 
-The challenge is to build an interactive pricing component and get it to look as close to the design as possible [More Info on the design](https://www.frontendmentor.io/challenges/interactive-pricing-component-t0m8PIyY8)
+The challenge is to build an interactive pricing component and get it to look as close to the design as possible. [More info on the design](https://www.frontendmentor.io/challenges/interactive-pricing-component-t0m8PIyY8)
 
 The users should be able to:
 
