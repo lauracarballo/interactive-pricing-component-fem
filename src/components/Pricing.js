@@ -1,8 +1,20 @@
 import styled from "styled-components";
 import Slider from "./Slider";
 import { neutral, main } from "../utils";
+import Switch from "./Switch";
+import { useState } from "react";
 
 export default function Pricing() {
+  const [isDiscounted, setIsDiscounted] = useState(false);
+
+  function handleToggle(isSelected) {
+    if (isSelected) {
+      setIsDiscounted(true);
+    } else {
+      setIsDiscounted(false);
+    }
+  }
+
   return (
     <SectionWrapper>
       <Header>
@@ -11,10 +23,24 @@ export default function Pricing() {
       </Header>
       <PricingBox>
         <Row>
-          <Slider minValue={8} maxValue={36} />
+          <Slider
+            minValue={8}
+            maxValue={36}
+            defaultValue={[20]}
+            isFilled
+            isDiscounted={isDiscounted}
+          />
         </Row>
 
-        <hr />
+        <BillingRow>
+          <span>Monthly Billing</span>
+          <Switch onToggle={handleToggle} />
+          <span>Yearly Billing</span>
+          <Discount>25% discount</Discount>
+        </BillingRow>
+
+        <Divider />
+
         <Row>
           <InfoContainer>
             <InfoRow>
@@ -59,7 +85,7 @@ export default function Pricing() {
 }
 
 const SectionWrapper = styled.section`
-  height: 600px;
+  height: 100%;
   width: 100%;
   background-image: url("/img/bg-pattern.svg");
   background-repeat: no-repeat;
@@ -69,35 +95,31 @@ const SectionWrapper = styled.section`
 const Header = styled.div`
   display: grid;
   place-items: center;
-  padding: 80px 0;
+  padding: 70px 0;
   background-image: url("/img/pattern-circles.svg");
   background-repeat: no-repeat;
   background-position: center;
 `;
 
 const PricingBox = styled.div`
-  padding: 40px 40px;
   background-color: ${neutral[100]};
   box-shadow: 0px 0px 14px 7px ${neutral[200]};
   border-radius: 10px;
   width: 500px;
-  height: 50%;
+  height: 60%;
   margin: 0 auto;
+
+  @media only screen and (max-width: 768px) {
+    width: 360px;
+  }
 `;
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 20px 40px;
 `;
-
-// const Slider = styled.div`
-//   height: 10px;
-//   width: 100%;
-//   background-color: black;
-//   margin: 55px 0;
-//   border-radius: 10px;
-// `;
 
 const InfoContainer = styled.div`
   display: flex;
@@ -108,7 +130,8 @@ const InfoRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
+  margin: 5px 0;
 
   div:first-of-type {
     margin-left: 10px;
@@ -124,4 +147,36 @@ const Button = styled.button`
   background-color: ${neutral[500]};
   color: ${main[500]};
   align-self: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Discount = styled.div`
+  background-color: ${main[300]};
+  color: ${main[400]};
+  border-radius: 10px;
+  padding: 0px 5px;
+  align-self: center;
+  font-size: 10px;
+  font-weight: 800;
+`;
+
+const BillingRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 315px;
+  margin: 0px 150px;
+  margin-bottom: 35px;
+  margin-top: 10px;
+  font-size: 12px;
+  align-items: center;
+  @media only screen and (max-width: 768px) {
+    margin: 0px auto;
+  }
+`;
+
+const Divider = styled.hr`
+  border: 1px solid ${neutral[200]};
 `;

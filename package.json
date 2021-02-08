@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@react-aria/slider": "^3.0.0",
+    "@react-aria/switch": "^3.1.1",
     "@react-aria/visually-hidden": "^3.2.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",

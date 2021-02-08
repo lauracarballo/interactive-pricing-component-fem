@@ -40,6 +40,7 @@ h2 {
     margin-block-start: 0;
     margin-block-end: 0;
     color: ${neutral[500]};
+    text-align: center;
 }
 h3 {
     font-weight: 800;
