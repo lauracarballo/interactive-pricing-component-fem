@@ -27,39 +27,30 @@ main {
   margin: 0 auto;
 }
 
-h1 {
-    font-weight: 800;
-    font-size: ${typeScale.header1};
-    margin-block-start: 0;
-    margin-block-end: 0;
-}
 
 h2 {
-    font-weight: 800;
-    font-size: ${typeScale.header2};
-    margin-block-start: 0;
-    margin-block-end: 0;
-    color: ${neutral[500]};
-    text-align: center;
-}
-h3 {
-    font-weight: 800;
-    font-size: ${typeScale.header3};
-    color: ${neutral[500]};
-    margin-block-start: 0;
-    margin-block-end: 0;
+  font-weight: 800;
+  font-size: ${typeScale.header2};
+  margin-block-start: 0;
+  margin-block-end: 0;
+  color: ${neutral[500]};
+  text-align: center;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 20px;
+  }
 }
 
-h4 {
-    font-weight: 600;
-    font-size: ${typeScale.header4};
-    color: ${neutral[500]};
-    margin-block-start: 0;
-    margin-block-end: 0;
-}
 
 p {
     font-weight: 600;
     font-size: ${typeScale.paragraph};
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-top: 5px;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 12px;
+  }
 }
 `;

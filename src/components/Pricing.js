@@ -3,9 +3,11 @@ import Slider from "./Slider";
 import { neutral, main } from "../utils";
 import Switch from "./Switch";
 import { useState } from "react";
+import useViewport from "./useViewport";
 
 export default function Pricing() {
   const [isDiscounted, setIsDiscounted] = useState(false);
+  const { isMobile } = useViewport();
 
   function handleToggle(isSelected) {
     if (isSelected) {
@@ -19,10 +21,11 @@ export default function Pricing() {
     <SectionWrapper>
       <Header>
         <h2>Simple, traffic-based pricing</h2>
-        <p>Sign-up for our 30 day trial. No credit card require.</p>
+        <p>Sign-up for our 30 day trial </p>
+        <p> No credit card require.</p>
       </Header>
       <PricingBox>
-        <Row>
+        <Row isMobile={isMobile}>
           <Slider
             minValue={8}
             maxValue={36}
@@ -32,17 +35,17 @@ export default function Pricing() {
           />
         </Row>
 
-        <BillingRow>
+        <BillingRow isMobile={isMobile}>
           <span>Monthly Billing</span>
           <Switch onToggle={handleToggle} />
           <span>Yearly Billing</span>
-          <Discount>25% discount</Discount>
+          <Discount>{isMobile ? "-25%" : "25% discount"}</Discount>
         </BillingRow>
 
         <Divider />
 
-        <Row>
-          <InfoContainer>
+        <Row isMobile={isMobile}>
+          <InfoContainer isMobile={isMobile}>
             <InfoRow>
               <svg xmlns="http://www.w3.org/2000/svg" width="9" height="8">
                 <path
@@ -110,20 +113,21 @@ const PricingBox = styled.div`
   margin: 0 auto;
 
   @media only screen and (max-width: 768px) {
-    width: 360px;
+    width: 300px;
   }
 `;
 
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: ${(props) => (props.isMobile ? "20px 20px" : "20px 40px")};
 `;
 
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: ${(props) => (props.isMobile ? "center" : "none")};
 `;
 
 const InfoRow = styled.div`
@@ -165,7 +169,7 @@ const Discount = styled.div`
 const BillingRow = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: ${(props) => (props.isMobile ? "center" : "space-evenly")};
   width: 315px;
   margin: 0px 150px;
   margin-bottom: 35px;

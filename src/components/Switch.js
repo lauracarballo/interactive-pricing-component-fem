@@ -7,12 +7,11 @@ import styled from "styled-components";
 import { main, neutral } from "../utils";
 
 export default function Switch(props) {
-  let state = useToggleState(props);
-  let ref = useRef();
-  let { inputProps } = useSwitch(props, state, ref);
-  let { isFocusVisible, focusProps } = useFocusRing();
-
-  const isSelected = state.isSelected;
+  const state = useToggleState(props);
+  const ref = useRef();
+  const { inputProps } = useSwitch(props, state, ref);
+  const { isFocusVisible, focusProps } = useFocusRing();
+  const { isSelected } = state;
 
   return (
     <Label>

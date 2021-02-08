@@ -7,111 +7,86 @@ import { VisuallyHidden } from "@react-aria/visually-hidden";
 import { mergeProps } from "@react-aria/utils";
 import { useNumberFormatter } from "@react-aria/i18n";
 import { main, neutral } from "../utils";
+import useViewport from "./useViewport";
 
 export default function Slider(props) {
-  let trackRef = useRef(null);
-  let numberFormatter = useNumberFormatter(props.formatOptions);
-  let state = useSliderState({ ...props, numberFormatter });
-  let { groupProps, trackProps, labelProps, outputProps } = useSlider(
+  const trackRef = useRef(null);
+  const numberFormatter = useNumberFormatter(props.formatOptions);
+  const state = useSliderState({ ...props, numberFormatter });
+  const { groupProps, trackProps, labelProps, outputProps } = useSlider(
     props,
     state,
     trackRef
   );
 
+  const { isMobile } = useViewport();
+  const thumbValue = Number(state.getThumbValueLabel(0));
+
+  const pageViews =
+    thumbValue < 12
+      ? "10K"
+      : thumbValue === 12
+      ? "50K"
+      : thumbValue < 16
+      ? "50K"
+      : thumbValue === 16
+      ? "100K"
+      : thumbValue < 24
+      ? "100K"
+      : thumbValue === 24
+      ? "500K"
+      : thumbValue < 36
+      ? "500K"
+      : thumbValue === 36 && "1M";
+
+  const price =
+    thumbValue < 12
+      ? 8
+      : thumbValue === 12
+      ? 12
+      : thumbValue < 16
+      ? 12
+      : thumbValue === 16
+      ? 16
+      : thumbValue < 24
+      ? 16
+      : thumbValue === 24
+      ? 24
+      : thumbValue < 36
+      ? 24
+      : thumbValue;
+
   return (
     <Group {...groupProps}>
-      <LabelContainer>
-        {props.isDiscounted ? (
-          <>
-            <Label {...labelProps}>
-              {+state.getThumbValueLabel(0) < 12
-                ? "10K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) === 12
-                ? "50K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) < 16
-                ? "50K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) === 16
-                ? "100K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) < 24
-                ? "100K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) === 24
-                ? "500K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) < 36
-                ? "500K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) === 36
-                ? "1M PAGEVIEWS"
-                : +state.getThumbValueLabel(0)}
-            </Label>
+      {isMobile ? (
+        <>
+          <LabelContainer isMobile={isMobile}>
+            <Label {...labelProps}>{pageViews} PAGEVIEWS</Label>
+          </LabelContainer>
+          <TrackContainer {...trackProps} ref={trackRef}>
+            <TrackLine isFilled={props.isFilled} state={state} index={0} />
+            <Thumb index={0} state={state} trackRef={trackRef} />
+          </TrackContainer>
+          <Output {...outputProps}>
+            ${price - (props.isDiscounted ? price * 0.25 : 0)}.00
+            <Tag>/month</Tag>
+          </Output>
+        </>
+      ) : (
+        <>
+          <LabelContainer>
+            <Label {...labelProps}>{pageViews} PAGEVIEWS</Label>
             <Output {...outputProps}>
-              {+state.getThumbValueLabel(0) < 12
-                ? "$6.00"
-                : +state.getThumbValueLabel(0) === 12
-                ? "$9.00"
-                : +state.getThumbValueLabel(0) < 16
-                ? "$9.00"
-                : +state.getThumbValueLabel(0) === 16
-                ? "$14.00"
-                : +state.getThumbValueLabel(0) < 24
-                ? "$14.00"
-                : +state.getThumbValueLabel(0) === 24
-                ? "$18.00"
-                : +state.getThumbValueLabel(0) < 36
-                ? "$18.00"
-                : +state.getThumbValueLabel(0) === 36
-                ? "$27.00"
-                : +state.getThumbValueLabel(0)}
+              ${price - (props.isDiscounted ? price * 0.25 : 0)}.00
             </Output>
             <Tag>/month</Tag>
-          </>
-        ) : (
-          <>
-            <Label {...labelProps}>
-              {+state.getThumbValueLabel(0) < 12
-                ? "10K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) === 12
-                ? "50K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) < 16
-                ? "50K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) === 16
-                ? "100K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) < 24
-                ? "100K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) === 24
-                ? "500K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) < 36
-                ? "500K PAGEVIEWS"
-                : +state.getThumbValueLabel(0) === 36
-                ? "1M PAGEVIEWS"
-                : +state.getThumbValueLabel(0)}
-            </Label>
-            <Output {...outputProps}>
-              {+state.getThumbValueLabel(0) < 12
-                ? "$8.00"
-                : +state.getThumbValueLabel(0) === 12
-                ? "$12.00"
-                : +state.getThumbValueLabel(0) < 16
-                ? "$12.00"
-                : +state.getThumbValueLabel(0) === 16
-                ? "$16.00"
-                : +state.getThumbValueLabel(0) < 24
-                ? "$16.00"
-                : +state.getThumbValueLabel(0) === 24
-                ? "$24.00"
-                : +state.getThumbValueLabel(0) < 36
-                ? "$24.00"
-                : +state.getThumbValueLabel(0) === 36
-                ? "$36.00"
-                : +state.getThumbValueLabel(0)}
-            </Output>
-            <Tag>/month</Tag>
-          </>
-        )}
-      </LabelContainer>
-
-      <TrackContainer {...trackProps} ref={trackRef}>
-        <TrackLine isFilled={props.isFilled} state={state} index={0} />
-        <Thumb index={0} state={state} trackRef={trackRef} />
-      </TrackContainer>
+          </LabelContainer>
+          <TrackContainer {...trackProps} ref={trackRef}>
+            <TrackLine isFilled={props.isFilled} state={state} index={0} />
+            <Thumb index={0} state={state} trackRef={trackRef} />
+          </TrackContainer>
+        </>
+      )}
     </Group>
   );
 }
@@ -171,7 +146,7 @@ const Output = styled.output`
 
 const LabelContainer = styled.div`
   display: flex;
-  align-self: stretch;
+  align-self: ${(props) => (props.isMobile ? "center" : "stretch")};
   font-size: 12px;
 `;
 
@@ -183,6 +158,8 @@ const Label = styled.div`
 const Tag = styled.span`
   letter-spacing: 1.5px;
   align-self: center;
+  color: ${neutral[400]};
+  font-size: 12px;
 `;
 
 const TrackContainer = styled.div`
