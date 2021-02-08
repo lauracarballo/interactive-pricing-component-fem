@@ -1,4 +1,4 @@
-# Interactive Pricing Component - FrontEnd Mentor
+# Interactive Pricing Component - Frontend Mentor
 
 I built this interactive pricing component following the Frontend Mentor design and styling guidances. 
 
