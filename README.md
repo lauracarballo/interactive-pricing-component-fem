@@ -2,6 +2,8 @@
 
 I built this interactive pricing component following the Frontend Mentor design and styling guidances. 
 
+![Interactive-pricing-component](./public/img/interactive-pricing-component-readme.png)
+
 ## The challenge
 
 The challenge is to build an interactive pricing component and get it to look as close to the [design](https://www.frontendmentor.io/challenges/interactive-pricing-component-t0m8PIyY8) as possible. 
