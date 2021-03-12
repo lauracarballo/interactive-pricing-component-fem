@@ -2,7 +2,7 @@
 
 I built this interactive pricing component following the Frontend Mentor design and styling guidances. 
 
-![Interactive-pricing-component](./public/img/interactive-pricing-component-readme.png)
+![Interactive-pricing-component](./public/img/interactive-pricing-screenshot.png)
 
 ## The challenge
 
